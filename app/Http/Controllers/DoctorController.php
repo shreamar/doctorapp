@@ -50,7 +50,9 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        //
+        $doctor = Doctor::find($id);
+        dd($doctor);
+        return view('doctor.details')->with('doctor',$doctor);
     }
 
     /**
