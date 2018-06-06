@@ -29,10 +29,10 @@ class CreateHospitalTable extends Migration
      */
     public function down()
     {
-       /* Schema::table('hospital', function (Blueprint $table) {
+       Schema::table('hospital', function (Blueprint $table) {
             $table->dropForeign(['city_id']);
             $table->dropColumn('city_id');
-        });*/
+        });
 
        Schema::disableForeignKeyConstraints();
        Schema::dropIfExists('hospital');

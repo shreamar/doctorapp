@@ -17,8 +17,8 @@ class CreateDoctorHospitalTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('hospital_id');
             $table->unsignedInteger('doctor_id');
-            $table->foreign('hospital_id')->references('id')->on('hospital');
-            $table->foreign('doctor_id')->refernces('id')->on('doctor');
+            /*$table->foreign('hospital_id')->references('id')->on('hospital');
+            $table->foreign('doctor_id')->refernces('id')->on('doctor');*/
         });
     }
 
@@ -29,12 +29,12 @@ class CreateDoctorHospitalTable extends Migration
      */
     public function down()
     {
-        /*Schema::table('doctor_hospital', function (Blueprint $table) {
-            $table->dropForeign(['doctor_id']);
-            $table->dropForeign(['hospital_id']);
-        });*/
+        Schema::table('doctor_hospital', function (Blueprint $table) {
+            $table->dropForeign('doctor_hospital_doctor_id_foreign');
+            $table->dropForeign('doctor_hospital_hospital_id_foreign');
+        });
 
-        Schema::disableForeignKeyConstraints();
+        //Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('doctor_hospital');
         //Schema::enableForeignKeyConstraints();
     }
