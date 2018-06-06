@@ -24,7 +24,7 @@
                     <td>{{$doctor->firstName}}</td>
                     <td>{{$doctor->gender}}</td>
                     <td>{{$doctor->age}}</td>
-                    <td><a class="btn btn-info btn-xs" href="doctor/show/{{$doctor->id}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                    <td><a class="btn btn-info btn-xs" href="{{action('DoctorController@show',['id'=>$doctor->id])}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
                 </tr>
             @endforeach
         </table>

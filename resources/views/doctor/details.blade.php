@@ -10,23 +10,33 @@
         <h4>Specific Doctor:</h4>
         <table class="table table-responsive table-striped">
             <tr>
-                <th>id</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>Gender</th>
-                <th>Age</th>
-                <th>Action</th>
+                <td>Name:</td>
+                <td>{{$doctor->firstName}} {{$doctor->lastName}}</td>
             </tr>
-            {{--@foreach($doctors as $doctor)
+            <tr>
+                <td>Age:</td>
+                <td>{{$doctor->age}}</td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>{{$doctor->gender}}</td>
+            </tr>
+        </table>
+
+        <h4>Related hospitals:</h4>
+        <table class="table table-responsive table-striped">
+            <tr>
+                <th>id</th>
+                <th>Hospital</th>
+                <th>City</th>
+            </tr>
+            @foreach($doctor->hospitals as $hospital)
                 <tr>
-                    <td>{{$doctor->id}}</td>
-                    <td>{{$doctor->lastName}}</td>
-                    <td>{{$doctor->firstName}}</td>
-                    <td>{{$doctor->gender}}</td>
-                    <td>{{$doctor->age}}</td>
-                    <td><a class="btn btn-info btn-xs" href="{{route('doctor.details',$doctor->i1d)}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                    <td>{{$hospital->id}}</td>
+                    <td>{{$hospital->name}}</td>
+                    <td>{{$hospital->city->name}}</td>
                 </tr>
-            @endforeach--}}
+            @endforeach
         </table>
     </div>
 @endsection
