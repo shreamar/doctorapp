@@ -52,7 +52,7 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::find($id);
         //dd($doctor);
-        return view('doctor.details')->with('doctor',$doctor);
+        return view('doctor.detail')->with('doctor',$doctor);
     }
 
     /**

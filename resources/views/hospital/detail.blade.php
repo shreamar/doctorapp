@@ -1,13 +1,31 @@
 @extends('layout.main')
 
 @section('title')
-    Doctors
+    Hospital detail
 @endsection
 
 @section('content')
     <div class="container">
         @include('include.navbar')
-        <br><h4>Doctors:</h4>
+        <h4>Hospital:</h4>
+        <table class="table table-responsive table-striped">
+            <tr>
+                <td>id#:</td>
+                <td>{{$hospital->id}}</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>{{$hospital->name}}</td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>{{$hospital->city->name}}</td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <h4>Doctors working in this hospital:</h4>
         <table class="table table-responsive table-striped">
             <tr>
                 <th>id</th>
@@ -16,7 +34,7 @@
                 <th>Age</th>
                 <th>Action</th>
             </tr>
-            @foreach($doctors as $doctor)
+            @foreach($hospital->doctors as $doctor)
                 <tr>
                     <td>{{$doctor->id}}</td>
                     <td>{{$doctor->lastName}}</td>

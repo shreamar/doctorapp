@@ -15,7 +15,7 @@ class DoctorTableSeeder extends Seeder
         $faker=Faker::create();
         for ($i=0;$i<10;$i++){
             DB::table('doctor')->insert([
-                'firstName'=>'Dr. '.$faker->firstName,
+                'firstName'=>$faker->firstName,
                 'lastName'=>$faker->lastName,
                 'age'=>$faker->numberBetween(25,50),
             ]);

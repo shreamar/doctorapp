@@ -48,7 +48,9 @@ class HospitalController extends Controller
      */
     public function show($id)
     {
-        //
+        $hospital=Hospital::find($id);
+        //dd($hospital);
+        return view('hospital.detail')->with('hospital',$hospital);
     }
 
     /**

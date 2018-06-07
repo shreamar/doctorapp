@@ -1,13 +1,13 @@
 @extends('layout.main')
 
 @section('title')
-    Specific Doctor
+    Doctor detail
 @endsection
 
 @section('content')
     <div class="container">
         @include('include.navbar')
-        <h4>Specific Doctor:</h4>
+        <h4>Doctor:</h4>
         <table class="table table-responsive table-striped">
             <tr>
                 <td>Name:</td>
@@ -29,12 +29,14 @@
                 <th>id</th>
                 <th>Hospital</th>
                 <th>City</th>
+                <th>Action</th>
             </tr>
             @foreach($doctor->hospitals as $hospital)
                 <tr>
                     <td>{{$hospital->id}}</td>
                     <td>{{$hospital->name}}</td>
                     <td>{{$hospital->city->name}}</td>
+                    <td><a class="btn btn-info btn-sm" href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
                 </tr>
             @endforeach
         </table>
