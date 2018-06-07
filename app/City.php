@@ -8,6 +8,8 @@ class City extends Model
 {
     protected $table = 'city';
 
+    protected $fillable = ['name'];
+
     public function hospitals(){
         return $this->hasMany('App\Hospital');
     }

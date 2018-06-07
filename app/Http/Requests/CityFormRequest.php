@@ -13,7 +13,7 @@ class CityFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class CityFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'country'=>'nullable',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'=>'A city name is required',
         ];
     }
 }

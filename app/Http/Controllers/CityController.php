@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CityFormRequest;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\City;
 
@@ -35,9 +37,30 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityFormRequest $request)
     {
-        //
+        try{
+            $validated=$request->validated();
+            $city = new City;
+
+//            dd($validated);
+//            dd($city);
+//            $city->name=$validated["name"];
+//            $city->country=$validated["country"];
+
+            $city->fill($validated);
+
+
+            $city->save();
+
+            return redirect('city');
+            //flash('Successfully saved entry to database')->success();
+        }
+        catch (QueryException $exception){
+            //flash('Saving entry to database failed!')->fail();
+        }
+
+
     }
 
     /**
