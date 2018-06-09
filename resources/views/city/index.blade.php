@@ -7,7 +7,14 @@
 @section('content')
     <div class="container">
         @include('include.navbar')
-        <br><h4>Cities:</h4>
+        <br>
+        <div>
+            <h4>Cities:</h4></th>
+            <a class="btn btn-info btn-sm"
+               href="{{action('CityController@create')}}">
+                <i class="fa fa-eye" aria-hidden="true"></i> New City</a>
+        </div>
+
         <table class="table table-responsive table-striped">
             <tr>
                 <th>id</th>
@@ -20,7 +27,8 @@
                     <td>{{$city->id}}</td>
                     <td>{{$city->name}}</td>
                     <td>{{$city->country}}</td>
-                    <td><a class="btn btn-info btn-sm" href="{{action('CityController@show',['id'=>$city->id])}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                    <td><a class="btn btn-info btn-sm" href="{{action('CityController@show',['id'=>$city->id])}}"><i
+                                    class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
                 </tr>
             @endforeach
         </table>

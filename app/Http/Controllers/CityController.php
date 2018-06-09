@@ -53,7 +53,7 @@ class CityController extends Controller
 
             $city->save();
 
-            return redirect('city');
+            return redirect()->action('CityController@show', ['id' => $city->id]);
             //flash('Successfully saved entry to database')->success();
         }
         catch (QueryException $exception){

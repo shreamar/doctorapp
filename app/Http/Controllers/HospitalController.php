@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Hospital;
+use App\Http\Requests\HospitalFormRequest;
 use Illuminate\Http\Request;
 
 class HospitalController extends Controller
@@ -16,7 +18,7 @@ class HospitalController extends Controller
     {
         $hospitals=Hospital::all();
         //dd($hospitals);
-        return view('hospital.index')->with(compact('hospitals'));
+        return view('hospital.index')->with('hospitals',$hospitals);
     }
 
     /**
@@ -26,7 +28,9 @@ class HospitalController extends Controller
      */
     public function create()
     {
-        //
+        $cities = City::pluck('name','id');
+        //dd($cities);
+        return view('hospital.create')->with('cities',$cities);
     }
 
     /**
@@ -35,9 +39,21 @@ class HospitalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HospitalFormRequest $request)
     {
-        //
+        try{
+            $validated=$request->validated();
+            $hospital = new Hospital;
+
+            $hospital->fill($validated);
+            $hospital->save();
+
+            return redirect()->action('HospitalController@show', ['id' => $hospital->id]);
+            //flash('Successfully saved entry to database')->success();
+        }
+        catch (QueryException $exception){
+            //flash('Saving entry to database failed!')->fail();
+        }
     }
 
     /**

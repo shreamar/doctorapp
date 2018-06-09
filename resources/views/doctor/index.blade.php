@@ -7,7 +7,13 @@
 @section('content')
     <div class="container">
         @include('include.navbar')
-        <br><h4>Doctors:</h4>
+        <br>
+        <div>
+            <h4>Doctors:</h4></th>
+            <a class="btn btn-info btn-sm"
+               href="{{action('DoctorController@create')}}">
+                <i class="fa fa-eye" aria-hidden="true"></i> New Doctor</a>
+        </div>
         <table class="table table-responsive table-striped">
             <tr>
                 <th>id</th>

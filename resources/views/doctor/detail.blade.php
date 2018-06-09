@@ -19,7 +19,12 @@
             </tr>
             <tr>
                 <td>Gender:</td>
-                <td>{{$doctor->gender}}</td>
+                <td>@if($doctor->gender)
+                        Female
+                    @else
+                        Male
+                    @endif
+                </td>
             </tr>
         </table>
 

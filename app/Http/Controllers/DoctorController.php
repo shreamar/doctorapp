@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hospital;
+use App\Http\Requests\DoctorFormRequest;
 use Illuminate\Http\Request;
 use App\Doctor;
 
@@ -28,7 +29,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('doctor.create');
     }
 
     /**
@@ -37,9 +38,21 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DoctorFormRequest $request)
     {
-        //
+        try{
+            $validated=$request->validated();
+            $doctor = new Doctor;
+
+            $doctor->fill($validated);
+            $doctor->save();
+
+            return redirect()->action('DoctorController@show', ['id' => $doctor->id]);
+            //flash('Successfully saved entry to database')->success();
+        }
+        catch (QueryException $exception){
+            //flash('Saving entry to database failed!')->fail();
+        }
     }
 
     /**

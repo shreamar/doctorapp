@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <div class="container">
+        @include('include.navbar')
         <br>
         @if($errors->any())
             @foreach($errors->all() as $message)
