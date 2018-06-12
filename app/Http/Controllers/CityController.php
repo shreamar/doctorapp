@@ -75,6 +75,7 @@ class CityController extends Controller
     public function show($id)
     {
         $city = City::find($id);
+        //dd($city);
         $hospitals = Hospital::pluck('name', 'id');
         //dd($city);
         return view('city.detail')->with('city', $city)->with('hospitals', $hospitals);
@@ -119,7 +120,7 @@ class CityController extends Controller
         $validated = $request->validated();
         $hospital = Hospital::find($validated['hospital_id']);
         //dd($hospital);
-        $hospital->city_id=$validated['city_id'];
+        $hospital->city_id = $validated['city_id'];
         //dd($hospital);
         $hospital->save();
 
@@ -130,14 +131,19 @@ class CityController extends Controller
         return redirect()->action('CityController@show', ['id' => $validated['city_id']]);
     }
 
-    public function removeHospitalsFromCity($id)
+    public function removeHospitalsFromCity(Request $request)
     {
-        $hospital=Hospital::find($id);
-        dd($hospital);
-        $hospital->city_id=null;
-        dd($hospital);
+        $validated = $request->validate([
+            'hospital_id'=>'required',
+        ]);
+
+        $hospital = Hospital::find($validated['hospital_id']);
+        //dd($hospital);
+        $cityId= $hospital->city_id;
+        $hospital->city_id = null;
+        //dd($hospital);
         $hospital->save();
 
-        return redirect()->action('CityController@show', ['id' => $hospital->id]);
+        return redirect()->action('CityController@show', ['id' => $cityId]);
     }
 }

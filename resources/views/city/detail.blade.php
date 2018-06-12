@@ -47,14 +47,21 @@
                     <td>{{$hospital->id}}</td>
                     <td>{{$hospital->name}}</td>
                     <td>{{$hospital->city->name}}</td>
-                    <td><a class="btn btn-info btn-sm"
-                           href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
-                                                                                                 aria-hidden="true"></i>
-                            View Details</a>
-                        <a class="btn btn-danger btn-sm"
-                           href="{{action('CityController@removeHospitalsFromCity',['id'=>$hospital->id])}}"><i class="fa fa-times"
-                                                                                                 aria-hidden="false"></i>
-                            Remove from this city</a></td>
+                    <td>
+                        <div class="row">
+                            <a class="btn btn-info btn-sm"
+                                href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
+                                                                                                      aria-hidden="true"></i>
+                                View Details</a>
+                            {!! Form::open(array('action' => array('CityController@removeHospitalsFromCity'))) !!}
+
+                            {{ Form::hidden('hospital_id', $hospital->id) }}
+
+                            {!! Form::submit('- Remove from this city', ['class' => 'btn btn-danger btn-sm']) !!}
+
+                            {!! Form::close() !!}
+                        </div>
+                    </td>
 
                 </tr>
                 </tr>
