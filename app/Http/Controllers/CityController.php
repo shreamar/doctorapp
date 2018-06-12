@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Hospital;
 use App\Http\Requests\AddHospitalsToCityFormRequest;
 use App\Http\Requests\CityFormRequest;
+use App\Http\Requests\RemoveHospitalsFromCityFormRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\City;
@@ -127,5 +128,16 @@ class CityController extends Controller
 //            ->update(['city_id' => $validated['city_id']]);
 
         return redirect()->action('CityController@show', ['id' => $validated['city_id']]);
+    }
+
+    public function removeHospitalsFromCity($id)
+    {
+        $hospital=Hospital::find($id);
+        dd($hospital);
+        $hospital->city_id=null;
+        dd($hospital);
+        $hospital->save();
+
+        return redirect()->action('CityController@show', ['id' => $hospital->id]);
     }
 }

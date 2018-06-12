@@ -52,7 +52,7 @@
                                                                                                  aria-hidden="true"></i>
                             View Details</a>
                         <a class="btn btn-danger btn-sm"
-                           href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-times"
+                           href="{{action('CityController@removeHospitalsFromCity',['id'=>$hospital->id])}}"><i class="fa fa-times"
                                                                                                  aria-hidden="false"></i>
                             Remove from this city</a></td>
 

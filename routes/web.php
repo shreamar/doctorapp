@@ -18,4 +18,6 @@ Route::get('/', function () {
 Route::resource('city','CityController');
 Route::resource('hospital','HospitalController');
 Route::resource('doctor','DoctorController');
+
 Route::post('city/addHospitalsToCity','CityController@addHospitalsToCity');
+Route::post('city/removeHospitalsFromCity','CityController@removeHospitalsFromCity');
