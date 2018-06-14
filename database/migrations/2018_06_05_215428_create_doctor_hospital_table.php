@@ -17,6 +17,7 @@ class CreateDoctorHospitalTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('hospital_id');
             $table->unsignedInteger('doctor_id');
+            $table->timestamp('deleted_at')->nullable();
             $table->foreign('hospital_id')->references('id')->on('hospital');
             $table->foreign('doctor_id')->references('id')->on('doctor');
         });

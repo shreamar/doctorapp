@@ -21,3 +21,9 @@ Route::resource('doctor','DoctorController');
 
 Route::post('city/addHospitalsToCity','CityController@addHospitalsToCity');
 Route::post('city/removeHospitalsFromCity','CityController@removeHospitalsFromCity');
+
+Route::post('hospital/addDoctorsToHospital','HospitalController@addDoctorsToHospital');
+Route::post('hospital/removeDoctorsFromHospital','HospitalController@removeDoctorsFromHospital');
+
+Route::post('doctor/addHospitalsToDoctor','DoctorController@addHospitalsToDoctor');
+Route::post('doctor/removeHospitalsFromDoctor','DoctorController@removeHospitalsFromDoctor');

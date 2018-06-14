@@ -16,10 +16,10 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors=Doctor::all();
-        $hospitals=Hospital::all();
+        $doctors = Doctor::all();
+        $hospitals = Hospital::all();
         //dd($doctors);
-        return view('doctor.index')->with('doctors',$doctors)->with('hospitals',$hospitals);
+        return view('doctor.index')->with('doctors', $doctors)->with('hospitals', $hospitals);
     }
 
     /**
@@ -35,13 +35,13 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(DoctorFormRequest $request)
     {
-        try{
-            $validated=$request->validated();
+        try {
+            $validated = $request->validated();
             $doctor = new Doctor;
 
             $doctor->fill($validated);
@@ -49,8 +49,7 @@ class DoctorController extends Controller
 
             return redirect()->action('DoctorController@show', ['id' => $doctor->id]);
             //flash('Successfully saved entry to database')->success();
-        }
-        catch (QueryException $exception){
+        } catch (QueryException $exception) {
             //flash('Saving entry to database failed!')->fail();
         }
     }
@@ -58,20 +57,21 @@ class DoctorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $doctor = Doctor::find($id);
+        $hospitals = Hospital::pluck('name', 'id');
         //dd($doctor);
-        return view('doctor.detail')->with('doctor',$doctor);
+        return view('doctor.detail')->with('doctor', $doctor)->with('hospitals', $hospitals);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +82,8 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,11 +94,38 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    public function addHospitalsToDoctor(Request $request)
+    {
+        $validated = $request->validate([
+            'doctor_id' => 'required',
+            'hospital_id' => 'required',
+        ]);
+
+        $hospital = Hospital::find($validated['hospital_id']);
+        $hospital->doctors()->attach($validated['doctor_id']);
+
+        return redirect()->action('DoctorController@show', ['id' => $validated['doctor_id']]);
+    }
+
+    public function removeHospitalsFromDoctor(Request $request)
+    {
+        $validated = $request->validate([
+            'doctor_id' => 'required',
+            'hospital_id' => 'required',
+        ]);
+
+        $hospital = Hospital::find($validated['hospital_id']);
+        $hospital->doctors()->detach($validated['doctor_id']);
+
+        return redirect()->action('DoctorController@show', ['id' => $validated['doctor_id']]);
+
     }
 }

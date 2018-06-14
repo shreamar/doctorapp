@@ -19,13 +19,22 @@
             </tr>
             <tr>
                 <td>Location:</td>
-                <td>{{$hospital->city->name}}</td>
+                <td>{{$hospital->city->name or null}}</td>
             </tr>
         </table>
 
         <hr>
 
-        <h4>Doctors working in this hospital:</h4>
+        <div class="form-inline">
+            {!! Form::open(array('action' => array('HospitalController@addDoctorsToHospital'))) !!}
+            <h4>Doctors working in this hospital:</h4>
+            {!! Form::select('doctor_id',$doctors, null, ['class' => 'form-control','placeholder'=>'Doctors']) !!}
+            {{ Form::hidden('hospital_id', $hospital->id) }}
+
+            {!! Form::submit('+ Add the doctor to this hospital', ['class' => 'btn btn-success']) !!}
+
+            {!! Form::close() !!}
+        </div>
         <table class="table table-responsive table-striped">
             <tr>
                 <th>id</th>
@@ -40,7 +49,21 @@
                     <td>{{$doctor->lastName}}</td>
                     <td>{{$doctor->firstName}}</td>
                     <td>{{$doctor->age}}</td>
-                    <td><a class="btn btn-info btn-sm" href="{{action('DoctorController@show',['id'=>$doctor->id])}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                    <td>
+                        <div class="form-inline">
+                            <a class="btn btn-info btn-sm"
+                               href="{{action('DoctorController@show',['id'=>$doctor->id])}}"><i
+                                        class="fa fa-eye" aria-hidden="true"></i> View Details</a>
+                            {!! Form::open(array('action' => array('HospitalController@removeDoctorsFromHospital'))) !!}
+
+                            {{ Form::hidden('doctor_id',$doctor->id) }}
+                            {{ Form::hidden('hospital_id',$hospital->id) }}
+
+                            {!! Form::submit('- Remove from this hospital', ['class' => 'btn btn-danger btn-sm']) !!}
+
+                            {!! Form::close() !!}
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </table>
