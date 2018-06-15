@@ -63,8 +63,8 @@ class DoctorController extends Controller
     public function show($id)
     {
         $doctor = Doctor::find($id);
-        $hospitals = Hospital::pluck('name', 'id');
-        //dd($doctor);
+        $hospitals = Hospital::all();//->doctors()->wherePivot('hospital_id','<>',$id)->get();
+        //dd($hospitals);
         return view('doctor.detail')->with('doctor', $doctor)->with('hospitals', $hospitals);
     }
 
@@ -76,7 +76,8 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $doctor=Doctor::find($id);
+        return view('doctor.edit')->with('doctor',$doctor);
     }
 
     /**
@@ -88,7 +89,19 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'firstName'=>'required',
+            'lastName'=>'required',
+            'age'=>'nullable',
+            'gender'=>'nullable',
+        ]);
+
+        $doctor=Doctor::find($id);
+        $doctor->fill($validated);
+
+        $doctor->save();
+
+        return redirect()->action('DoctorController@show', ['id' => $doctor->id]);
     }
 
     /**
@@ -99,7 +112,10 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doctor=Doctor::find($id);
+        $doctor->delete();
+
+        return redirect()->action('DoctorController@index');
     }
 
     public function addHospitalsToDoctor(Request $request)

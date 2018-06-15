@@ -20,6 +20,7 @@ class CreateDoctorTable extends Migration
             $table->unsignedInteger('age')->nullable();
             $table->boolean('gender')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

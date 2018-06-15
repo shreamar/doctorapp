@@ -8,6 +8,17 @@
     <div class="container">
         @include('include.navbar')
         <h4>Hospital:</h4>
+        <div class="form-inline">
+            <a class="btn btn-warning btn-sm"
+               href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
+                                                                                 aria-hidden="true"></i>
+                Edit</a>
+            {!! Form::open(array('action' => array('HospitalController@destroy',$hospital->id),'method'=>'DELETE')) !!}
+
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+
+            {!! Form::close() !!}
+        </div>
         <table class="table table-responsive table-striped">
             <tr>
                 <td>id#:</td>
@@ -28,10 +39,18 @@
         <div class="form-inline">
             {!! Form::open(array('action' => array('HospitalController@addDoctorsToHospital'))) !!}
             <h4>Doctors working in this hospital:</h4>
-            {!! Form::select('doctor_id',$doctors, null, ['class' => 'form-control','placeholder'=>'Doctors']) !!}
-            {{ Form::hidden('hospital_id', $hospital->id) }}
+            @if($doctors->count()>0)
+                <select name="doctor_id" class="form-control">
+                    <option value="{{null}}">Select Doctor</option>
+                    @foreach($doctors as $doctor)
+                        <option value="{{$doctor->id}}"> Dr. {{$doctor->firstName}} {{$doctor->lastName}}</option>
+                    @endforeach
+                </select>
 
-            {!! Form::submit('+ Add the doctor to this hospital', ['class' => 'btn btn-success']) !!}
+                {{ Form::hidden('hospital_id', $hospital->id) }}
+
+                {!! Form::submit('+ Add the doctor to this hospital', ['class' => 'btn btn-success']) !!}
+            @endif
 
             {!! Form::close() !!}
         </div>

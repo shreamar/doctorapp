@@ -19,6 +19,7 @@ class CreateHospitalTable extends Migration
             $table->unsignedInteger('city_id')->nullable();
             $table->foreign('city_id')->references('id')->on('city');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

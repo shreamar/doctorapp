@@ -67,7 +67,7 @@ class HospitalController extends Controller
     public function show($id)
     {
         $hospital = Hospital::find($id);
-        $doctors = Doctor::pluck('firstName', 'id');
+        $doctors = Doctor::all();//->hospitals()->wherePivot('hospital_id','<>',$id);
         //dd($hospital);
         return view('hospital.detail')->with('hospital', $hospital)->with('doctors', $doctors);
     }
@@ -80,7 +80,9 @@ class HospitalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hospital=Hospital::find($id);
+        $cities = City::pluck('name','id');
+        return view('hospital.edit')->with('hospital',$hospital)->with('cities',$cities);
     }
 
     /**
@@ -92,7 +94,17 @@ class HospitalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated=$request->validate([
+            'name'=>'required',
+            'city_id'=>'nullable',
+        ]);
+
+        $hospital=Hospital::find($id);
+        $hospital->fill($validated);
+
+        $hospital->save();
+
+        return redirect()->action('HospitalController@show', ['id' => $hospital->id]);
     }
 
     /**
@@ -103,7 +115,10 @@ class HospitalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hospital=Hospital::find($id);
+        $hospital->delete();
+
+        return redirect()->action('HospitalController@index');
     }
 
     public function addDoctorsToHospital(Request $request)

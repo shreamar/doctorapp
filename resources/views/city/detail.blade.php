@@ -8,6 +8,21 @@
     <div class="container">
         @include('include.navbar')
         <h4>City:</h4>
+        <div class="form-inline">
+            <a class="btn btn-warning btn-sm"
+               href="{{action('CityController@edit',['id'=>$city->id])}}"><i class="fa fa-eye"
+                                                                                     aria-hidden="true"></i>
+                Edit</a>
+            {{--<a class="btn btn-danger btn-sm"--}}
+               {{--href="{{action('CityController@destroy',['id'=>$city->id])}}"><i class="fa fa-eye"--}}
+                                                                                     {{--aria-hidden="true"></i>--}}
+                {{--Delete</a>--}}
+            {!! Form::open(array('action' => array('CityController@destroy',$city->id),'method'=>'DELETE')) !!}
+
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+
+            {!! Form::close() !!}
+        </div>
         <table class="table table-responsive table-striped">
             <tr>
                 <td>id#:</td>
@@ -28,10 +43,20 @@
         <div class="form-inline">
             {!! Form::open(array('action' => array('CityController@addHospitalsToCity'))) !!}
             <h4>Hospitals in the city:</h4>
-            {!! Form::select('hospital_id',$hospitals, null, ['class' => 'form-control','placeholder'=>'Hospitals']) !!}
-            {{ Form::hidden('city_id', $city->id) }}
+            {{--{!! Form::select('hospital_id',$hospitals, null, ['class' => 'form-control','placeholder'=>'Hospitals']) !!}--}}
+            @if($hospitals->count()>0)
+                <select class="form-control m-bot15" name="hospital_id" placeholder="Hospitals">
+                    <option value="{{null}}">Select Hospital</option>
+                    @foreach($hospitals as $hospital)
+                        <option value="{{$hospital->id}}">{{$hospital->name}}</option>
+                    @endforeach
+                </select>
 
-            {!! Form::submit('+ Add the hospital to this city', ['class' => 'btn btn-success']) !!}
+
+                {{ Form::hidden('city_id', $city->id) }}
+
+                {!! Form::submit('+ Add the hospital to this city', ['class' => 'btn btn-success']) !!}
+            @endif
 
             {!! Form::close() !!}
         </div>
@@ -48,10 +73,10 @@
                     <td>{{$hospital->name}}</td>
                     <td>{{$hospital->city->name}}</td>
                     <td>
-                        <div class="row">
+                        <div class="form-inline">
                             <a class="btn btn-info btn-sm"
-                                href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
-                                                                                                      aria-hidden="true"></i>
+                               href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
+                                                                                                     aria-hidden="true"></i>
                                 View Details</a>
                             {!! Form::open(array('action' => array('CityController@removeHospitalsFromCity'))) !!}
 

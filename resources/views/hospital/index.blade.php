@@ -26,7 +26,12 @@
                     <td>{{$hospital->id}}</td>
                     <td>{{$hospital->name}}</td>
                     <td>{{$hospital->city->name or null}}</td> {{-- ~ ($hospital->city->name) ? (1$hospital->city->name) : null--}}
-                    <td><a class="btn btn-info btn-sm" href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{{action('HospitalController@show',['id'=>$hospital->id])}}">
+                            <i class="fa fa-eye" aria-hidden="true"></i> View Details</a>
+                        <a class="btn btn-success btn-sm" href="{{action('HospitalController@edit',['id'=>$hospital->id])}}">
+                            <i class="fa fa-eye" aria-hidden="true"></i> Edit</a>
+                    </td>
                 </tr>
             @endforeach
         </table>

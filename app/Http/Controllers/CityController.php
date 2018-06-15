@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\City;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\Caster\CutArrayStub;
 
 class CityController extends Controller
 {
@@ -76,7 +77,7 @@ class CityController extends Controller
     {
         $city = City::find($id);
         //dd($city);
-        $hospitals = Hospital::pluck('name', 'id');
+        $hospitals = Hospital::all()->where('city_id', '<>', $id);
         //dd($city);
         return view('city.detail')->with('city', $city)->with('hospitals', $hospitals);
     }
@@ -89,7 +90,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $city = City::find($id);
+        return view('city.edit')->with('city', $city);
     }
 
     /**
@@ -101,7 +103,20 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'country' => 'required',
+        ]);
+
+        $city = City::find($id);
+        //dd($city);
+        $city->fill($validated);
+//        $city->name = $validated['name'];
+//        $city->country = $validated['country'];
+
+        $city->save();
+
+        return redirect()->action('CityController@show', ['id' => $city->id]);
     }
 
     /**
@@ -112,7 +127,11 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $city = City::find($id);
+        //dd($city);
+        $city->delete();
+
+        return redirect()->action('CityController@index');
     }
 
     public function addHospitalsToCity(AddHospitalsToCityFormRequest $request)
@@ -134,12 +153,12 @@ class CityController extends Controller
     public function removeHospitalsFromCity(Request $request)
     {
         $validated = $request->validate([
-            'hospital_id'=>'required',
+            'hospital_id' => 'required',
         ]);
 
         $hospital = Hospital::find($validated['hospital_id']);
         //dd($hospital);
-        $cityId= $hospital->city_id;
+        $cityId = $hospital->city_id;
         $hospital->city_id = null;
         //dd($hospital);
         $hospital->save();

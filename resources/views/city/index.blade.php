@@ -28,7 +28,10 @@
                     <td>{{$city->name}}</td>
                     <td>{{$city->country}}</td>
                     <td><a class="btn btn-info btn-sm" href="{{action('CityController@show',['id'=>$city->id])}}"><i
-                                    class="fa fa-eye" aria-hidden="true"></i> View Details</a></td>
+                                    class="fa fa-eye" aria-hidden="true"></i> View Details</a>
+                        <a class="btn btn-success btn-sm" href="{{action('CityController@edit',['id'=>$city->id])}}"><i
+                                    class="fa fa-eye" aria-hidden="true"></i> Edit</a>
+                    </td>
                 </tr>
             @endforeach
         </table>
