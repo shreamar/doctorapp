@@ -10,7 +10,7 @@
         <h4>Doctor:</h4>
         <div class="form-inline">
             <a class="btn btn-warning btn-sm"
-               href="{{action('DoctorController@show',['id'=>$doctor->id])}}"><i class="fa fa-eye"
+               href="{{action('DoctorController@edit',['id'=>$doctor->id])}}"><i class="fa fa-eye"
                                                                                      aria-hidden="true"></i>
                 Edit</a>
             {!! Form::open(array('action' => array('DoctorController@destroy',$doctor->id),'method'=>'DELETE')) !!}

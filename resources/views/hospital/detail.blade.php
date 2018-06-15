@@ -10,7 +10,7 @@
         <h4>Hospital:</h4>
         <div class="form-inline">
             <a class="btn btn-warning btn-sm"
-               href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
+               href="{{action('HospitalController@edit',['id'=>$hospital->id])}}"><i class="fa fa-eye"
                                                                                  aria-hidden="true"></i>
                 Edit</a>
             {!! Form::open(array('action' => array('HospitalController@destroy',$hospital->id),'method'=>'DELETE')) !!}
