@@ -19,6 +19,7 @@ class DoctorTableSeeder extends Seeder
                 'lastName'=>$faker->lastName,
                 'age'=>$faker->numberBetween(25,50),
                 'gender'=>$faker->boolean,
+                'created_at'=>$faker->date(),
             ]);
         }
     }

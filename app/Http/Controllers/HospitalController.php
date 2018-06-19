@@ -67,8 +67,10 @@ class HospitalController extends Controller
     public function show($id)
     {
         $hospital = Hospital::find($id);
-        $doctors = Doctor::all();//->hospitals()->wherePivot('hospital_id','<>',$id);
-        //dd($hospital);
+        $doctors = Doctor::whereDoesntHave('hospitals', function ($query) use ($id){
+            $query->where('hospital_id',$id);
+        })->get();
+        //dd($doctors);
         return view('hospital.detail')->with('hospital', $hospital)->with('doctors', $doctors);
     }
 

@@ -17,6 +17,7 @@ class CityTableSeeder extends Seeder
             DB::table('city')->insert([
                 'name' => $faker->city,
                 'country'=>$faker->country,
+                'created_at'=>$faker->date(),
             ]);
         }
     }

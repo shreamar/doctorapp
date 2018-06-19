@@ -52,7 +52,7 @@
                 <select name="hospital_id" class="form-control">
                     <option value="{{null}}">Select Hospital</option>
                     @foreach($hospitals as $hospital)
-                        <option value="{{$hospital->id}}">{{$hospital->name}}</option>
+                        <option value="{{$hospital->id}}">{{$hospital->id}} {{$hospital->name}}</option>
                     @endforeach
                 </select>
                 {{ Form::hidden('doctor_id', $doctor->id) }}

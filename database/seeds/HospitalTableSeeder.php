@@ -17,6 +17,7 @@ class HospitalTableSeeder extends Seeder
             DB::table('hospital')->insert([
                 'name'=>$faker->company,
                 'city_id'=>random_int(1,3),
+                'created_at'=>$faker->date(),
             ]);
         }
     }
