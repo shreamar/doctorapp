@@ -11,12 +11,12 @@
         <div class="form-inline">
             <a class="btn btn-warning btn-sm"
                href="{{action('CityController@edit',['id'=>$city->id])}}"><i class="fa fa-eye"
-                                                                                     aria-hidden="true"></i>
+                                                                             aria-hidden="true"></i>
                 Edit</a>
             {{--<a class="btn btn-danger btn-sm"--}}
-               {{--href="{{action('CityController@destroy',['id'=>$city->id])}}"><i class="fa fa-eye"--}}
-                                                                                     {{--aria-hidden="true"></i>--}}
-                {{--Delete</a>--}}
+            {{--href="{{action('CityController@destroy',['id'=>$city->id])}}"><i class="fa fa-eye"--}}
+            {{--aria-hidden="true"></i>--}}
+            {{--Delete</a>--}}
             {!! Form::open(array('action' => array('CityController@destroy',$city->id),'method'=>'DELETE')) !!}
 
             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
@@ -60,37 +60,40 @@
 
             {!! Form::close() !!}
         </div>
-        <table class="table table-responsive table-striped">
-            <tr>
-                <th>id</th>
-                <th>Hospital</th>
-                <th>City</th>
-                <th>Action</th>
-            </tr>
-            @foreach($city->hospitals as $hospital)
+        @if($city->hospitals->count()>0)
+            <table class="table table-responsive table-striped">
                 <tr>
-                    <td>{{$hospital->id}}</td>
-                    <td>{{$hospital->name}}</td>
-                    <td>{{$hospital->city->name}}</td>
-                    <td>
-                        <div class="form-inline">
-                            <a class="btn btn-info btn-sm"
-                               href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i class="fa fa-eye"
-                                                                                                     aria-hidden="true"></i>
-                                View Details</a>
-                            {!! Form::open(array('action' => array('CityController@removeHospitalsFromCity'))) !!}
-
-                            {{ Form::hidden('hospital_id', $hospital->id) }}
-
-                            {!! Form::submit('- Remove from this city', ['class' => 'btn btn-danger btn-sm']) !!}
-
-                            {!! Form::close() !!}
-                        </div>
-                    </td>
-
+                    <th>id</th>
+                    <th>Hospital</th>
+                    <th>City</th>
+                    <th>Action</th>
                 </tr>
-                </tr>
-            @endforeach
-        </table>
+                @foreach($city->hospitals as $hospital)
+                    <tr>
+                        <td>{{$hospital->id}}</td>
+                        <td>{{$hospital->name}}</td>
+                        <td>{{$hospital->city->name}}</td>
+                        <td>
+                            <div class="form-inline">
+                                <a class="btn btn-info btn-sm"
+                                   href="{{action('HospitalController@show',['id'=>$hospital->id])}}"><i
+                                            class="fa fa-eye"
+                                            aria-hidden="true"></i>
+                                    View Details</a>
+                                {!! Form::open(array('action' => array('CityController@removeHospitalsFromCity'))) !!}
+
+                                {{ Form::hidden('hospital_id', $hospital->id) }}
+
+                                {!! Form::submit('- Remove from this city', ['class' => 'btn btn-danger btn-sm']) !!}
+
+                                {!! Form::close() !!}
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tr>
+                @endforeach
+            </table>
+        @endif
     </div>
 @endsection

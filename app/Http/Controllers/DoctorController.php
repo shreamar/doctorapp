@@ -16,7 +16,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::orderBy('created_at','desc')->paginate(10);
+        //orders by updated_at(if not null) else orders by created at, use of raw SQL query
+        $doctors = Doctor::orderByRaw('ifnull(updated_at,created_at) desc')->paginate(10);
         //$hospitals = Hospital::all();
         //dd($doctors);
         return view('doctor.index')->with('doctors', $doctors);//->with('hospitals', $hospitals);

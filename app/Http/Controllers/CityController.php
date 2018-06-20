@@ -22,8 +22,10 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::orderBy('created_at','desc')->paginate(10);
-        //dd($cities);
+        //orders by updated_at(if not null) else orders by created at, use of raw SQL query
+        $cities = City::orderByRaw('ifnull(updated_at,created_at) desc')->paginate(10);
+//        $cities = City::orderBy('created_at','desc')->paginate(10);
+//        dd($cities);
         return view('city.index')->with(compact('cities'));
     }
 
