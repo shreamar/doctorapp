@@ -12,6 +12,7 @@ use App\City;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Caster\CutArrayStub;
 
+
 class CityController extends Controller
 {
     /**
@@ -21,7 +22,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
+        $cities = City::orderBy('created_at','desc')->paginate(10);
         //dd($cities);
         return view('city.index')->with(compact('cities'));
     }

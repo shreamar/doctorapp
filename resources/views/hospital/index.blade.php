@@ -35,5 +35,6 @@
                 </tr>
             @endforeach
         </table>
+        {{$hospitals->links()}}
     </div>
 @endsection

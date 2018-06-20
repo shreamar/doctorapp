@@ -13,13 +13,13 @@ class DoctorTableSeeder extends Seeder
     public function run()
     {
         $faker=Faker::create();
-        for ($i=0;$i<10;$i++){
+        for ($i=0;$i<50;$i++){
             DB::table('doctor')->insert([
                 'firstName'=>$faker->firstName,
                 'lastName'=>$faker->lastName,
                 'age'=>$faker->numberBetween(25,50),
                 'gender'=>$faker->boolean,
-                'created_at'=>$faker->date(),
+                'created_at'=>$faker->dateTime(),
             ]);
         }
     }

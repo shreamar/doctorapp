@@ -13,11 +13,11 @@ class CityTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach(range(1,3) as $i) {
+        foreach(range(1,23) as $i) {
             DB::table('city')->insert([
                 'name' => $faker->city,
                 'country'=>$faker->country,
-                'created_at'=>$faker->date(),
+                'created_at'=>$faker->dateTime(),
             ]);
         }
     }

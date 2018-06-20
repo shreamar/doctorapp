@@ -16,10 +16,10 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
-        $hospitals = Hospital::all();
+        $doctors = Doctor::orderBy('created_at','desc')->paginate(10);
+        //$hospitals = Hospital::all();
         //dd($doctors);
-        return view('doctor.index')->with('doctors', $doctors)->with('hospitals', $hospitals);
+        return view('doctor.index')->with('doctors', $doctors);//->with('hospitals', $hospitals);
     }
 
     /**

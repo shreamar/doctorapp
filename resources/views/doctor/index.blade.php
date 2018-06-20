@@ -37,5 +37,6 @@
                 </tr>
             @endforeach
         </table>
+        {{$doctors->links()}}
     </div>
 @endsection

@@ -11,10 +11,10 @@ class DoctorHospitalPivotTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<12;$i++){
+        for($i=0;$i<100;$i++){
             DB::table('doctor_hospital')->insert([
-               'doctor_id'=>random_int(1,10),
-                'hospital_id'=>random_int(1,5),
+               'doctor_id'=>random_int(1,\App\Doctor::all()->count()),
+                'hospital_id'=>random_int(1,\App\Hospital::all()->count()),
             ]);
         }
     }

@@ -13,11 +13,11 @@ class HospitalTableSeeder extends Seeder
     public function run()
     {
         $faker=Faker::create();
-        for ($i=0;$i<5;$i++){
+        for ($i=0;$i<30;$i++){
             DB::table('hospital')->insert([
                 'name'=>$faker->company,
-                'city_id'=>random_int(1,3),
-                'created_at'=>$faker->date(),
+                'city_id'=>random_int(1,\App\City::all()->count()),
+                'created_at'=>$faker->dateTime(),
             ]);
         }
     }

@@ -35,5 +35,7 @@
                 </tr>
             @endforeach
         </table>
+
+        {{$cities->links()}}
     </div>
 @endsection
